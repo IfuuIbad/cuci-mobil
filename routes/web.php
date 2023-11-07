@@ -18,5 +18,6 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/transaction/invoice', [App\Http\Controllers\TransactionController::class, 'invoice'])->name('invoice');
 
 Auth::routes();
