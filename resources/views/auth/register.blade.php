@@ -3,7 +3,7 @@
     <body class="hold-transition register-page">
         <div class="register-box">
             <div class="register-logo">
-                <a href="{{ url('/home') }}"><b>{{ config('app.name') }}</b></a>
+                <a href="{{ url('/home') }}"><b>Cuci Mobil</b></a>
             </div>
 
             <div class="card">

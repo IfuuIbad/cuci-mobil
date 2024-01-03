@@ -19,14 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/transaction/invoice', [App\Http\Controllers\TransactionController::class, 'invoice'])->name('invoice');
 
-Route::prefix('/admin')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('admin');
-    Route::get('/add', [AdminController::class, 'create'])->name('admin.add');
-    Route::get('/inbox', [AdminController::class, 'inbox'])->name('admin.inbox');
-    Route::get('/pricing', [AdminController::class, 'pricing'])->name('admin.pricing');
+
+Route::prefix('/admin')->name('admin.')->middleware(['auth', 'role:admin-staff'])->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+});
+
+Route::name('member.')->middleware(['auth', 'role:member'])->group(function () {
+    Route::get('/membership/dashboard', [App\Http\Controllers\MembershipController::class, 'index'])->name('dashboard');
+    Route::get('/membership-list', [AdminController::class, 'pricing'])->name('pricelist');
 });
 
 Auth::routes();

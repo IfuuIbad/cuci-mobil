@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('duration_month');
-            $table->string('is_active');
+            $table->integer('duration_day');
+            $table->boolean('is_active');
             $table->timestamps();
         });
     }
