@@ -50,7 +50,7 @@
                             <p>
                                 Rain or Shine, Your Car Will Shine! Get a free tire shine with every car wash today, no matter the weather.
                             </p>
-                            <a href="#" class="btn btn-success btn-block">
+                            <a href="{{ route('member.register', ['id' => 1]) }}" class="btn btn-success btn-block">
                                 <b>Subscribe</b>
                             </a>
                         </div>
@@ -77,7 +77,7 @@
                                 Get 10% off your monthly membership when you pay for a year in advance.
                             </p>
                             <br>
-                            <a href="#" class="btn btn-success btn-block">
+                            <a href="{{ route('member.register', ['id' => 2]) }}" class="btn btn-success btn-block">
                                 <b>Subscribe</b>
                             </a>
                         </div>
@@ -103,7 +103,7 @@
                             <p>
                                 Sign up for an annual membership and get a free gift card to your favorite gas station.
                             </p>
-                            <a href="#" class="btn btn-success btn-block">
+                            <a href="{{ route('member.register', ['id' => 3]) }}" class="btn btn-success btn-block">
                                 <b>Subscribe</b>
                             </a>
                         </div>

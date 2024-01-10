@@ -30,6 +30,6 @@ class Car extends Model
      */
     public function memberships(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Membership::class, 'car_member');
     }
 }
