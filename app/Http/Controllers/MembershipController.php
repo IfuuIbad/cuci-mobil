@@ -54,20 +54,23 @@ class MembershipController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        $date = "";
-        if ($request->membership_id == 1) {
-            $date = Carbon::today()->setTime(12, 0, 0);
-        } elseif ($request->membership_id == 2) {
-            $date = Carbon::today()->addMonthNoOverflow()->startOfMonth()->setHour(12)->setMinute(0)->setSecond(0);
-        } else {
-            $date = Carbon::today()->addYear()->startOfDay()->setHour(12);
+        $date = Carbon::now();
+
+        $membership = Membership::findOrFail($request->membership_id);
+
+        if($membership->duration_month > 0){
+            $date->addMonth($membership->duration_month);
+        }
+
+        if($membership->duration_day > 0){
+            $date->addDay($membership->duration_day);
         }
 
         $car = new Car();
         $car->user_id = Auth::id();
         $car->name = $request->name;
         $car->license_number = $request->license_number;
-        $car->color = $request->color;
+        // $car->color = $request->color;
         $car->exp_membership = $date;
 
         if ($request->hasFile('image')) {
