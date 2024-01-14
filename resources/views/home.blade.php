@@ -23,7 +23,7 @@
                     <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">Membership Report</h3>
-                        <a href="javascript:void(0);">View Report</a>
+                        {{-- <a href="javascript:void(0);">View Report</a> --}}
                     </div>
                     </div>
                     <div class="card-body">
@@ -54,20 +54,20 @@
                         <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Sales</h3>
-                            <a href="javascript:void(0);">View Report</a>
+                            {{-- <a href="javascript:void(0);">View Report</a> --}}
                         </div>
                         </div>
                         <div class="card-body">
                         <div class="d-flex">
                             <p class="d-flex flex-column">
-                            <span class="text-bold text-lg">$18,230.00</span>
+                            <span class="text-bold text-lg">@currency($totalAll)</span>
                             <span>Sales Over Time</span>
                             </p>
                             <p class="ml-auto d-flex flex-column text-right">
-                            <span class="text-success">
+                            {{-- <span class="text-success">
                                 <i class="fas fa-arrow-up"></i> 33.1%
                             </span>
-                            <span class="text-muted">Since last month</span>
+                            <span class="text-muted">Since last month</span> --}}
                             </p>
                         </div>
                         <!-- /.d-flex -->
@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-lg-12">
                 <div class="card" width="100%">
                     <div class="card-header border-0">
@@ -136,7 +136,7 @@
                 </div>
                 <!-- /.card -->
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -177,15 +177,15 @@
         var salesChart = new Chart(stx, {
             type: 'bar',
             data: {
-                labels: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], // Labels from the image
+                labels: ['Jan', 'Feb', 'March', 'April', 'May', 'Jun', 'Jul'], // Labels from the image
                 datasets: [{
                     label: 'This Year',
-                    data: [0, 2500, 2000, 1500, 1000, 1500, 3000], // Data values for this year
+                    data: [{{ $totalJan }}, {{ $totalFeb }}, {{ $totalMarch }}, {{ $totalAppril }}, {{ $totalMay }}, {{ $totalJun }}, {{ $totalJul }}], // Data values for this year
                     borderColor: 'rgba(54, 162, 235, 1)',
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 }, {
                     label: 'Last Year',
-                    data: [0, 1500, 1000, 500, 1000, 1500, 2500], // Data values for last year
+                    data: [0, 100000, 100000, 100000, 100000, 100000, 100000], // Data values for last year
                     borderColor: 'rgba(255, 99, 132, 1)',
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 }]

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
+            $table->string('invoice');
             $table->jsonb('car');
             $table->jsonb('membership');
             $table->bigInteger('total_price');

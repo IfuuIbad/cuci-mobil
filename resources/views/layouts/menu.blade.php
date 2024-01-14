@@ -2,12 +2,18 @@
 
 @if (Auth::user()->role == 'admin')
     <li class="nav-item">
-        <a href="{{ route('admin') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
+        <a href="{{ route('admin.dashboard') }}" class="nav-link {{ Request::is('admin/dashboard') ? 'active' : '' }}">
             <i class="nav-icon fas fa-home"></i>
             <p>Dashboard</p>
         </a>
     </li>
-    <li class="nav-item {{ Request::is('transaction*') ? 'menu-is menu-is-opening menu-open' : '' }}" >
+    <li class="nav-item">
+        <a href="{{ route('admin.transaction') }}" class="nav-link {{ Request::is('admin/transaction*') ? 'active' : '' }}">
+            <i class="nav-icon far fa-envelope"></i>
+            <p>Transaction</p>
+        </a>
+    </li>
+    {{-- <li class="nav-item {{ Request::is('transaction*') ? 'menu-is menu-is-opening menu-open' : '' }}" >
         <a href="#" class="nav-link {{ Request::is('transaction*') ? 'active' : '' }}">
             <i class="nav-icon far fa-envelope"></i>
             <p>
@@ -29,7 +35,7 @@
                 </a>
             </li>
         </ul>
-    </li>
+    </li> --}}
 @elseif (Auth::user()->role == 'member')
     <li class="nav-item">
         <a href="{{ route('member.dashboard') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
@@ -37,7 +43,7 @@
             <p>Dashboard</p>
         </a>
     </li>
-    <li class="nav-item {{ Request::is('transaction*') ? 'menu-is menu-is-opening menu-open' : '' }}" >
+    {{-- <li class="nav-item {{ Request::is('transaction*') ? 'menu-is menu-is-opening menu-open' : '' }}" >
         <a href="#" class="nav-link {{ Request::is('transaction*') ? 'active' : '' }}">
             <i class="nav-icon far fa-envelope"></i>
             <p>
@@ -53,6 +59,6 @@
             </a>
             </li>
         </ul>
-    </li>
+    </li> --}}
 @endif
 

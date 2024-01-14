@@ -30,6 +30,7 @@ class Car extends Model
      */
     public function memberships(): BelongsToMany
     {
-        return $this->belongsToMany(Membership::class, 'car_member');
+        return $this->belongsToMany(Membership::class, 'car_member')->withPivot('created_at')->withTimestamps();
     }
+
 }
