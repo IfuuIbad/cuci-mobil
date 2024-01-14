@@ -55,10 +55,10 @@
                             <label>Nopol / plat nomor</label>
                             <input type="text" name="license_number" class="form-control" placeholder="Plat Nomor">
                         </div>
-                        {{-- <div class="form-group">
+                        <div class="form-group">
                             <label>Warna Mobil</label>
                             <input type="text" name="color" class="form-control" placeholder="Warna">
-                        </div> --}}
+                        </div>
                         <div class="form-group">
                             <label for="exampleInputFile">Foto Mobil</label>
                                 <div class="input-group">

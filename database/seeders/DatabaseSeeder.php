@@ -46,6 +46,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'daily',
             'duration_month' => 0,
             'duration_day' => 1,
+            'price' => 50000,
             'is_active' => true,
         ]);
 
@@ -54,6 +55,8 @@ class DatabaseSeeder extends Seeder
             'duration_month' => 1,
             'duration_day' => 0,
             'is_active' => true,
+            'price' => 250000,
+
         ]);
 
         \App\Models\Membership::create([
@@ -61,6 +64,7 @@ class DatabaseSeeder extends Seeder
             'duration_month' => 12,
             'duration_day' => 0,
             'is_active' => true,
+            'price' => 2500000,
         ]);
 
         if(!File::exists(storage_path('app/public/cars'))){

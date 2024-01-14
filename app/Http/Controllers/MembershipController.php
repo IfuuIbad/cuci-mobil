@@ -53,6 +53,13 @@ class MembershipController extends Controller
             'color' => 'required|max:50',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
+        // dd($request);
+
+        // if(car exp_membership != null && car exp_membership > Carbon::now() ){
+// $date = car exp_membership
+        // }else{
+
+        // }
 
         $date = Carbon::now();
 
@@ -70,7 +77,7 @@ class MembershipController extends Controller
         $car->user_id = Auth::id();
         $car->name = $request->name;
         $car->license_number = $request->license_number;
-        // $car->color = $request->color;
+        $car->color = $request->color;
         $car->exp_membership = $date;
 
         if ($request->hasFile('image')) {
