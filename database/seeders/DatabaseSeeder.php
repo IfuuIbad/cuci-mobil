@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Car;
 use Illuminate\Database\Seeder;
 
 use File;
@@ -71,16 +73,35 @@ class DatabaseSeeder extends Seeder
             File::makeDirectory(storage_path('app/public/cars'));
         }
 
-        $member1->cars()->create([
+        // $member1->cars()->create([
+        //     'name' => 'ferari',
+        //     'license_number' => 'L 1111 XM',
+        //     'image' => fake()->image(storage_path('app/public/cars'), 400, 300, 'cars', false),
+        // ]);
+
+        // $member2->cars()->create([
+        //     'name' => 'ford',
+        //     'license_number' => 'L 3333 XM',
+        //     'image' => fake()->image(storage_path('app/public/cars'), 400, 300, 'cars', false),
+        // ]);
+
+        $car1 = Car::create([
+            'user_id' => 1,
             'name' => 'ferari',
             'license_number' => 'L 1111 XM',
+            'color' => 'red',
             'image' => fake()->image(storage_path('app/public/cars'), 400, 300, 'cars', false),
         ]);
 
-        $member2->cars()->create([
+        $car2 = Car::create([
+            'user_id' => 2,
             'name' => 'ford',
             'license_number' => 'L 3333 XM',
+            'color' => 'silver',
             'image' => fake()->image(storage_path('app/public/cars'), 400, 300, 'cars', false),
         ]);
+
+        $car1->memberships()->attach(1);
+        $car2->memberships()->attach(2);
     }
 }

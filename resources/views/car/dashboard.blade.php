@@ -6,11 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                    <h1>Dashboard</h1>
+                    <h1>Mobil</h1>
                     </div>
                     <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Mobil</a></li>
                     </ol>
                     </div>
                 </div>
@@ -25,7 +26,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header border-transparent">
-                        <h3 class="card-title">List Mobil Langganan</h3>
+                        <h3 class="card-title">List Mobil</h3>
 
                         <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -42,30 +43,22 @@
                         <table class="table m-0">
                             <thead>
                             <tr>
-                            <th>Mobil</th>
-                            <th>Item</th>
-                            <th>Status</th>
-                            <th>expired_at</th>
+                            <th>Merk Mobil</th>
+                            <th>Plat Nomor</th>
+                            <th>Warna</th>
+                            <th>Foto Mobil</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach ($cars as $car)
-                                @if ($car->memberships()->get() != '[]')
-                                    <tr>
-                                        <td>
-                                            <a href="{{ route('car.index', ['car_id' => $car->id]) }}">
-                                                {{ $car->name }}
-                                            </a>
-                                        </td>
-                                        @foreach ($car->memberships()->get() as $membership)
-                                            <td>Membership {{ $membership->name }}</td>
-                                        @endforeach
-                                        <td><span class="badge {{ $car->exp_membership > \Carbon\Carbon::now() ? 'badge-success' : 'badge-warning' }}">{{ $car->exp_membership > \Carbon\Carbon::now() ? 'active' : 'expired' }}</span></td>
-                                        <td>
-                                            {{ \Carbon\Carbon::createFromDate($car->exp_membership)->format('j F Y') }}
-                                        </td>
-                                    </tr>
-                                @endif
+                                <tr>
+                                    <td>{{ $car->name }}</td>
+                                    <td>{{ $car->license_number }}</td>
+                                    <td>{{ $car->color }}</td>
+                                    <td>
+                                        <img width="100" src="{{ asset('storage/cars/' . $car->image) }}" alt="{{ $car->name }} Image">
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
@@ -73,9 +66,10 @@
                         <!-- /.table-responsive -->
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer clearfix">
-                        <a href="{{ route('member.price-list') }}" class="btn btn-sm btn-info float-right">Place New Order</a>
-                    </div>
+                    {{-- <div class="card-footer clearfix">
+                        <a href="{{ route('member.price-list') }}" class="btn btn-sm btn-info float-left">Place New Order</a>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+                    </div> --}}
                     <!-- /.card-footer -->
                 </div>
             </div>

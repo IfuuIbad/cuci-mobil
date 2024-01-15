@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class MembershipController extends Controller
 {
@@ -33,64 +34,56 @@ class MembershipController extends Controller
 
     public function pricing()
     {
-        return view('membership.pricing');
+        $memberships = Membership::query()->get();
+
+        return view('membership.pricing', [
+            'memberships' => $memberships
+        ]);
     }
 
     public function register($membershipId)
     {
         $membership = Membership::findOrFail($membershipId);
+        $cars = Car::query()->where('user_id', Auth::id())->get();
 
-        return view('membership.register', [
-            'membership' => $membership
-        ]);
+        return view('membership.register', compact('membership', 'cars'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'license_number' => 'required|unique:cars|max:20',
-            'color' => 'required|max:50',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        $validator = Validator::make($request->all(), [
+            'car_id' => 'required',
+            'membership_id' => 'required',
+            'membership_price' => 'required'
         ]);
-        // dd($request);
 
-        // if(car exp_membership != null && car exp_membership > Carbon::now() ){
-// $date = car exp_membership
-        // }else{
-
-        // }
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            toastr()->error($errors->first(), 'Sorry');
+            return redirect()->back()->withInput();
+        }
 
         $date = Carbon::now();
-
         $membership = Membership::findOrFail($request->membership_id);
 
-        if($membership->duration_month > 0){
+        if($membership->duration_month > 0) {
             $date->addMonth($membership->duration_month);
         }
 
-        if($membership->duration_day > 0){
+        if($membership->duration_day > 0) {
             $date->addDay($membership->duration_day);
         }
 
-        $car = new Car();
-        $car->user_id = Auth::id();
-        $car->name = $request->name;
-        $car->license_number = $request->license_number;
-        $car->color = $request->color;
-        $car->exp_membership = $date;
+        $car = Car::findOrFail($request->car_id);
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            Storage::putFileAs('public/cars', $image, $imageName);
-            $car->image = $imageName; // Save the image name in the database
-        }
+        if ($car) {
+            $car->exp_membership = $date;
+            $car->save();
 
-        if ($car->save()) {
             $car->memberships()->attach($request->membership_id);
         }
 
+        toastr()->success('Data has been saved successfully!', 'Success');
         return redirect()->route('member.dashboard');
     }
 }

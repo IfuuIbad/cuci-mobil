@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CarController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\TransactionController;
@@ -38,5 +39,7 @@ Route::prefix('/membership')->name('member.')->middleware(['auth', 'role:member'
     Route::get('/register/{id}', [MembershipController::class, 'register'])->name('register');
     Route::post('/store', [MembershipController::class, 'store'])->name('store-regis');
 });
+
+Route::resource('car', CarController::class);
 
 Auth::routes();
