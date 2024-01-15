@@ -52,10 +52,10 @@
                             @foreach ($cars as $car)
                                     <tr>
                                         <td><a href="{{route('member.car.detail', $car)}}">{{ $car->name }}</a></td>
-                                        <td>{{ (@$car->memberships[0]->name)? $car->memberships[0]->name : 'never join membership yet' }}</td>
+                                        <td>{{ (@$car->memberships[sizeof($car->memberships) -1]->name)? $car->memberships[sizeof($car->memberships) -1]->name : 'never join membership yet' }}</td>
                                         <td><span class="badge {{ $car->exp_membership > \Carbon\Carbon::now() ? 'badge-success' : 'badge-warning' }}">{{ $car->exp_membership > \Carbon\Carbon::now() ? 'active' : 'expired' }}</span></td>
                                         <td>
-                                            {{ (@$car->memberships[0]->name)? \Carbon\Carbon::createFromDate($car->exp_membership)->format('j F Y') : 'never join membership yet' }}
+                                            {{ (@$car->memberships[sizeof($car->memberships) -1]->name)? \Carbon\Carbon::createFromDate($car->exp_membership)->format('j F Y') : 'never join membership yet' }}
                                         </td>
                                     </tr>
                             @endforeach

@@ -24,11 +24,8 @@ class MembershipController extends Controller
 
     public function index()
     {
-
         $cars = Car::query()
-            ->with('memberships',  function($query) {
-                return $query->latest()->first();
-            })
+            ->with('memberships')
             ->where('user_id', Auth::id())
             ->get();
 
