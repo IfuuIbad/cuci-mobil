@@ -6,6 +6,7 @@ use App\Models\Car;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class CarController extends Controller
 {
@@ -39,12 +40,18 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'license_number' => 'required|unique:cars|max:20',
             'color' => 'required|max:50',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            toastr()->error($errors->first(), 'Sorry');
+            return redirect()->back()->withInput();
+        }
 
         $car = new Car();
         $car->user_id = Auth::id();
