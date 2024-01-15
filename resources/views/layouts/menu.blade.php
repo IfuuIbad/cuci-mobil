@@ -2,7 +2,7 @@
 
 @if (Auth::user()->role == 'admin')
     <li class="nav-item">
-        <a href="{{ route('admin') }}" class="nav-link {{ Request::is('admin*') ? 'active' : '' }}">
+        <a href="{{ route('admin.dashboard') }}" class="nav-link {{ Request::is('admin/dashboard') ? 'active' : '' }}">
             <i class="nav-icon fas fa-home"></i>
             <p>Dashboard</p>
         </a>

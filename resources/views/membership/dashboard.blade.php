@@ -50,22 +50,14 @@
                             </thead>
                             <tbody>
                             @foreach ($cars as $car)
-                                @if ($car->memberships()->get() != '[]')
                                     <tr>
-                                        <td>
-                                            <a href="{{ route('car.index', ['car_id' => $car->id]) }}">
-                                                {{ $car->name }}
-                                            </a>
-                                        </td>
-                                        @foreach ($car->memberships()->get() as $membership)
-                                            <td>Membership {{ $membership->name }}</td>
-                                        @endforeach
+                                        <td><a href="{{route('member.car.detail', $car)}}">{{ $car->name }}</a></td>
+                                        <td>{{ (@$car->memberships[0]->name)? $car->memberships[0]->name : 'never join membership yet' }}</td>
                                         <td><span class="badge {{ $car->exp_membership > \Carbon\Carbon::now() ? 'badge-success' : 'badge-warning' }}">{{ $car->exp_membership > \Carbon\Carbon::now() ? 'active' : 'expired' }}</span></td>
                                         <td>
-                                            {{ \Carbon\Carbon::createFromDate($car->exp_membership)->format('j F Y') }}
+                                            {{ (@$car->memberships[0]->name)? \Carbon\Carbon::createFromDate($car->exp_membership)->format('j F Y') : 'never join membership yet' }}
                                         </td>
                                     </tr>
-                                @endif
                             @endforeach
                             </tbody>
                         </table>

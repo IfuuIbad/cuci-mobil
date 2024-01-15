@@ -52,7 +52,11 @@
                             <tbody>
                             @foreach ($cars as $car)
                                 <tr>
-                                    <td>{{ $car->name }}</td>
+                                    <td>
+                                        <a href="{{ route('member.car.detail', $car) }}">
+                                            {{ $car->name }}
+                                        </a>
+                                    </td>
                                     <td>{{ $car->license_number }}</td>
                                     <td>{{ $car->color }}</td>
                                     <td>
