@@ -64,8 +64,14 @@ class MembershipController extends Controller
             toastr()->error($errors->first(), 'Sorry');
             return redirect()->back()->withInput();
         }
+        $car = Car::findOrFail($request->car_id);
+
 
         $date = Carbon::now();
+        if($car->exp_membership >= $date){
+            $date = Carbon::parse($car->exp_membership);
+        }
+
         $membership = Membership::findOrFail($request->membership_id);
 
         if($membership->duration_month > 0) {
@@ -76,7 +82,6 @@ class MembershipController extends Controller
             $date->addDay($membership->duration_day);
         }
 
-        $car = Car::findOrFail($request->car_id);
 
         if ($car) {
             $car->exp_membership = $date;
